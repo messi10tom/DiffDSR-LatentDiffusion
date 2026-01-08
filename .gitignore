@@ -1,0 +1,21 @@
+# venv
+venv/*
+
+reconstructed_speech.wav
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Data files
+data/librispeech/*
+data/Libritts/*
+data/uaspeech/*
+data/vctk/*
+
+# Logs and databases
+logs/
+
+# Model checkpoints
+checkpoints/
+data/normal_codec_set.pt
+

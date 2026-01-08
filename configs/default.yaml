@@ -1,0 +1,76 @@
+# Model Configuration
+model:
+  ssl_type: "hubert"  # Options: wav2vec2, hubert, wavlm
+  ssl_model_name: "facebook/hubert-base-ls960"
+  n_phonemes: 128
+  conv_channels: [512, 512, 512]
+  conv_kernel_size: 3
+  
+  # Speaker Identity Encoder
+  codec_dim: 128
+  codec_codebook_size: 1024
+  speaker_transformer_layers: 4
+  speaker_hidden_dim: 128
+  speaker_nhead: 8
+  
+  # Variance Adaptor
+  duration_predictor_channels: [256, 256]
+  pitch_predictor_channels: [256, 256]
+  variance_kernel_size: 3
+  
+  # Diffusion Model
+  wavenet_blocks: 20
+  wavenet_channels: 128
+  wavenet_kernel_size: 3
+  wavenet_dilation_rate: 2
+  diffusion_steps: 1000
+  beta_min: 0.0001
+  beta_max: 0.02
+  
+# Training Configuration
+training:
+  # Content Encoder
+  content_encoder_pretrain_steps: 100
+  content_encoder_finetune_steps: 20
+  content_encoder_batch_size: 4
+  content_encoder_lr: 0.0001
+  
+  # Diffusion Model
+  diffusion_steps_total: 1000
+  diffusion_batch_size: 1
+  diffusion_lr: 0.0001
+  gradient_clip: 1.0
+  
+  # Optimization
+  warmup_steps: 10
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_eps: 1e-8
+  
+# Data Configuration
+data:
+  sample_rate: 16000
+  n_fft: 1024
+  hop_length: 256
+  win_length: 1024
+  n_mels: 80
+  fmin: 0
+  fmax: 8000
+  
+  # Phoneme set
+  phoneme_set: "arpabet"
+  
+# Paths
+paths:
+  librispeech: "./data/librispeech"
+  uaspeech: "./data/uaspeech"
+  vctk: "./data/vctk"
+  libritts: "./data/libritts"
+  normal_codec_set: "./data/normal_codec_set.pt"
+  checkpoints: "./checkpoints"
+  logs: "./logs"
+
+# Inference
+inference:
+  diffusion_sampling_steps: 50
+  temperature: 1.0
